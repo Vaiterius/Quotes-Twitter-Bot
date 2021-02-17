@@ -11,3 +11,5 @@ Utilizes the awesome *[tweepy](https://github.com/tweepy/tweepy)* and *[better_p
 - Detect profanity in mentions and respond accordingly
 - Follow anyone that follows bot
 - (soon) Receive and send direct messages
+
+Twitter handle: *[@bot_gooby](https://twitter.com/bot_gooby)*
