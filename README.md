@@ -2,7 +2,7 @@
 
 Used to test and experiment with the Twitter API. Currently to poke fun at friends and overall just to play around with.
 
-*Utilizes the awesome [tweepy](https://github.com/tweepy/tweepy) and [better_profanity](https://github.com/snguyenthanh/better_profanity) libraries. Powered by Heroku.*
+Utilizes the awesome *[tweepy](https://github.com/tweepy/tweepy)* and *[better_profanity](https://github.com/snguyenthanh/better_profanity)* libraries. Powered by Heroku.
 
 ### What it does
 - Tweet a Monty Python quote every once in a while

@@ -7,7 +7,6 @@ import time
 import json
 import random
 import logging
-from configparser import ConfigParser
 
 import tweepy
 from better_profanity import profanity
@@ -23,9 +22,6 @@ logger = logging.getLogger()
 # Import subjects for bot to interact with.
 with open("victims.json") as users_file:
     users_dict = json.load(users_file)
-# Import hashtags for bot to like and retweet.
-with open("hastags.json") as hashtags_file:
-    hashtags_list = json.load(hashtags_file)
 # Import Monty Python quotes.
 with open("monty_python_quotes.json", encoding="utf-8") as file:
     quotes_list = json.load(file)
@@ -51,6 +47,7 @@ class CustomListener(tweepy.StreamListener):
         user = status.user.screen_name
         print("CHECK CHECK CHECK", tweet)
         print("This person just tweeted:", user)
+        logger.info("This person just tweeted:", user)
         
         for id, id_info in self.victim_dict.items():
             current_iter = id_info["screen_name"]
@@ -307,6 +304,7 @@ def tweet_quote(api):
 
 
 def main():
+    hashtags_list = ["#goobybot", "#montypythonquotes"]
     # API initialization.
     api = create_api()
     # Receives tweets from the stream.
