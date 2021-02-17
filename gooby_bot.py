@@ -319,7 +319,7 @@ def main():
 
     # NUM_MIN: 60 for 1 hour, 120 for 2 hours...
     NUM_MIN = 120
-    mod_counter = 1
+    mod_counter = 60
 
     # Calls all bot functions every minute so as to not be rate limited.
     while True:
@@ -327,8 +327,10 @@ def main():
         if mod_counter % NUM_MIN == 0:
             tweet_quote(api)
             mod_counter = 1
-        else:
-            mod_counter += 1
+
+        mod_counter += 1
+        print(f"Counter is now: {mod_counter}")
+        logger.info(f"Counter is now: {mod_counter}")
 
         # handle_messages(api)
         follow_followers(api)
