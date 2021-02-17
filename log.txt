@@ -1,0 +1,19 @@
+[INFO] 2021-02-17 00:44:46,065 - API object created.
+[INFO] 2021-02-17 00:44:46,380 - Selected users: 
+Names: ['illbcorpz', 'ddaikirai_uwu', 'kaieldeoc', 'vaiterius']
+ID's: ['1112535377447804928', '849115431579262976', '1036005356613169153', '1710181387']
+[INFO] 2021-02-17 00:44:46,386 - Retrieving and following followers.
+[INFO] 2021-02-17 00:44:46,579 - Checking mentions.
+[INFO] 2021-02-17 00:44:46,712 - Waiting...
+[INFO] 2021-02-17 00:44:56,717 - Retrieving and following followers.
+[INFO] 2021-02-17 00:44:56,906 - Checking mentions.
+[INFO] 2021-02-17 00:44:57,055 - Waiting...
+[INFO] 2021-02-17 00:45:07,081 - Tweeting quote... "Our experts describe you as an appallingly dull fellow, unimaginative, timid, lacking in initiative, spineless, easily dominated, no sense of humour, tedious company and irrepressibly drab and awful."
+[INFO] 2021-02-17 00:45:07,304 - Retrieving and following followers.
+[INFO] 2021-02-17 00:45:07,477 - Checking mentions.
+[INFO] 2021-02-17 00:45:07,621 - Waiting...
+[INFO] 2021-02-17 00:45:17,622 - Retrieving and following followers.
+[INFO] 2021-02-17 00:45:17,792 - Checking mentions.
+[INFO] 2021-02-17 00:45:17,932 - Waiting...
+[INFO] 2021-02-17 00:45:27,943 - Retrieving and following followers.
+[WARNING] 2021-02-17 00:45:28,085 - Rate limit reached. Sleeping for: 183
