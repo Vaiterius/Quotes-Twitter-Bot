@@ -22,8 +22,8 @@
 
     "1710181387": {
         "screen_name": "vaiterius",
-        "enable_like": true,
-        "enable_reply": true,
+        "enable_like": false,
+        "enable_reply": false,
         "enable_retweet": false
     }
 }
