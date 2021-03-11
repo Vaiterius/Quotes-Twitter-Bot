@@ -233,6 +233,16 @@ def check_mentions(api, FILE_NAME):
     print("Checking mentions.")
     logger.info("Checking mentions.")
     mentions = api.mentions_timeline(read_last_seen_id(FILE_NAME), tweet_mode="extended")
+    
+    # Sus replies, delete soon lol.
+    replies = [
+        "What's good fam?", "You tryna kiss me or sum?", "Damn homie I think you lookin' cute",
+        "Hey boo", "Balls in my face", "Shut up before I kiss you", "Hey daddy", "Can I be your baby daddy?",
+        "Hey lol", "You kinda cute doe", "Daddy chill", "You be fartin' a lot?", "Ey lemme smack that ass tho",
+        "Hola papi", "You be squirtin'?", "Lemme smell that fart tho", "DM me feet pics", "sex",
+        "Butt ass naked replying to you rn", "Do it jiggle?", "Dick me down I go dicko mode", "lol"
+        ]
+    
     for mention in reversed(mentions):
         # Bot does not mention itself, which leads to an infinite loop.
         if mention.user.screen_name != api.me().screen_name:
@@ -257,7 +267,7 @@ def check_mentions(api, FILE_NAME):
                 print(e.response.text)
                 logger.info(e.response.text)
             finally:
-                api.update_status(f"@{mention.user.screen_name} Auto reply works!", mention.id)
+                api.update_status(f"@{mention.user.screen_name} {random.choice(replies)}", mention.id)
                 store_last_seen_id(FILE_NAME, mention.id)
             return
 
@@ -318,8 +328,8 @@ def main():
     stream.filter(follow=[id for id in users_dict], track=hashtags_list, is_async=True)
 
     # NUM_MIN: 60 for 1 hour, 120 for 2 hours...
-    NUM_MIN = 120
-    mod_counter = 60
+    NUM_MIN = 360
+    mod_counter = 180
 
     # Calls all bot functions every minute so as to not be rate limited.
     while True:
@@ -337,7 +347,7 @@ def main():
         check_mentions(api, "last_seen.txt")
         logger.info("Waiting...")
         print("Waiting...")
-        time.sleep(60)
+        time.sleep(70)
 
 
 if __name__ == '__main__':
