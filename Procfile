@@ -1,1 +1,0 @@
-worker: python gooby_bot.py
