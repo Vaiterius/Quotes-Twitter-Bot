@@ -7,7 +7,7 @@ import tweepy
 import schedule
 from schedule import run_pending
 
-from app import handpicked_quotes, utils, config, responses
+from app import handpicked_quotes, utils, config
 from api_wrapper import wrapper
 
 # Create and configure logger.
@@ -15,20 +15,6 @@ LOG_FORMAT = "[%(levelname)s] %(asctime)s - %(message)s"
 logging.basicConfig(level=logging.INFO,
                     format=LOG_FORMAT)
 logger = logging.getLogger()
-
-
-def read_last_seen_id(FILE_NAME) -> int:
-    """Read latest ID from file and return it."""
-    with open(FILE_NAME, "r") as file:
-        last_seen_id = int(file.read().strip())
-        return last_seen_id
-
-
-def store_last_seen_id(FILE_NAME, last_seen_id):
-    """Takes latest ID from call and store it into file."""
-    with open(FILE_NAME, "w") as file:
-        file.write(str(last_seen_id))
-        return
 
 
 def follow_followers(twitter_api):
@@ -46,8 +32,8 @@ def tweet_monty_python(twitter_api, monty_python_api):
     - A random quote from the API
     - Random sketch dialogue from the API
     """
-    choice_function = random.randint(0, 2)
     tweet = ""
+    choice_function = random.randint(0, 2)
     if choice_function == 0:
         logger.info("Tweeting a handpicked quote")
         tweet += random.choice(handpicked_quotes.quotes)
@@ -60,19 +46,38 @@ def tweet_monty_python(twitter_api, monty_python_api):
     
     # API probably not working?
     if not tweet:
-        logger.error("Error occurred")
-        raise Exception("Error occurred")
+        logger.error("API Error")
+        return
     
-    twitter_api.update_status(tweet)
-    logger.info(f"Tweeted: {tweet}")
+    try:
+        twitter_api.update_status(tweet)
+        logger.info(f"Tweeted: {tweet}")
+    except tweepy.TweepyException as e:
+        logger.error(e)
+    
+    return
 
 
 def main():
     logger.info("Initializing app")
     twitter_api = config.create_api()
     monty_python_api = wrapper.MontyPythonAPI()
-    schedule.every(30).minutes.do(tweet_monty_python, twitter_api, monty_python_api)
+    
+    # V2 tweets streaming.
+    hashtags_checker = config.get_stream_listener()
+    hashtags = ["#GoobyBot", "#MontyPythonQuotes"]
+    for hashtag in hashtags:
+        hashtags_checker.add_rules(tweepy.StreamRule(value=hashtag))
+    hashtags_checker.filter(  # Explicitly include more payload details.
+        expansions="author_id",
+        tweet_fields="created_at",
+        threaded=True)
+    
+    # Perform bot actions at scheduled times.
+    schedule.every(3).hours.do(
+        tweet_monty_python, twitter_api, monty_python_api)
     schedule.every(1).minute.do(follow_followers, twitter_api)
+    
     while True:
         run_pending()
         time.sleep(1)
@@ -80,4 +85,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
