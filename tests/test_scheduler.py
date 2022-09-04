@@ -5,13 +5,13 @@ import schedule
 from schedule import every, run_pending
 
 from api_wrapper import wrapper
-from app import utils, movie_quotes
+from app import handpicked_quotes, utils
 
-api = wrapper.MontyPythonAPI("v1")
+api = wrapper.MontyPythonAPI()
 
 
-def get_movie_quote():
-    return random.choice(movie_quotes.movie_quotes)
+def get_handpicked_quote():
+    return random.choice(handpicked_quotes.quotes)
 def get_random_quote():
     return utils.tweet_random_quote(api)
 def get_random_sketch():
@@ -36,7 +36,7 @@ def print_every_second():
 @schedule.repeat(every(5).seconds)
 def print_random_choice_quotes():
     function_choices = [
-        get_movie_quote,
+        get_handpicked_quote,
         get_random_quote,
         get_random_sketch
     ]

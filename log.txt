@@ -1,6 +1,0 @@
-[INFO] 2022-09-03 13:56:17,269 - API object created.
-[INFO] 2022-09-03 13:56:47,519 - Retrieving and following followers.
-[INFO] 2022-09-03 13:56:47,689 - Following Gerard Gandionco
-[INFO] 2022-09-03 13:57:17,924 - Retrieving and following followers.
-[INFO] 2022-09-03 13:57:48,230 - Retrieving and following followers.
-[INFO] 2022-09-03 13:58:18,699 - Retrieving and following followers.

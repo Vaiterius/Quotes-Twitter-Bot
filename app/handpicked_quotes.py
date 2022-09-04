@@ -1,4 +1,4 @@
-movie_quotes = [
+quotes = [
     "He's not the Messiah - he's a very naughty boy!",
     "Alright, but apart from the sanitation, the medicine, education, wine, public order, irrigation, roads, the freshwater system, and public health, what have the Romans ever done for us?",
     "This parrot is no more! It has ceased to be! It’s expired and gone to meet its maker! This is a late parrot! It’s a stiff! Bereft of life, it rests in peace!",

@@ -4,11 +4,8 @@ import requests
 class MontyPythonAPI:
     """Wrapper for the Monty Python's Flying Circus API """
     
-    def __init__(self, version):
-        if version.lower().strip() not in ["v1", "latest"]:
-            raise ValueError("No such version")
-
-        self.url = f"https://monty-pythons-flying-api.fly.dev/{version}/"
+    def __init__(self):
+        self.url = f"https://monty-pythons-flying-api.fly.dev/v1/"
     
     def _format(self, endpoint: str, params: dict):
         """Clean and validate data before requesting"""

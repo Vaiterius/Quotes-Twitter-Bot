@@ -1,8 +1,6 @@
 import random
 
-from app import movie_quotes
-
-MAX_LENGTH = 280
+MAX_TWEET_LENGTH = 280
 
 
 def get_tweetable_sketch(sketch):
@@ -13,21 +11,26 @@ def get_tweetable_sketch(sketch):
     dialogue = "\n".join(sketch_lines)
     
     # Already of tweetable length.
-    if len(dialogue) <= MAX_LENGTH:
+    if len(dialogue) <= MAX_TWEET_LENGTH:
         return dialogue
     
     truncated_dialogue = ""
-    EPSILON = 100
-    random_index = random.randrange(0, len(sketch_lines))
-    while len(truncated_dialogue) < MAX_LENGTH:
+    EPSILON = 100  # 
+    random_index = random.randrange(0, len(sketch_lines))  # Random line from list.
+    
+    # Finding dialogue within max length.
+    while len(truncated_dialogue) < MAX_TWEET_LENGTH:
         
-        if (MAX_LENGTH - len(truncated_dialogue)) <= EPSILON:
+        # Tweet length is good enough i.e. within epsilon value.
+        if (MAX_TWEET_LENGTH - len(truncated_dialogue)) <= EPSILON:
             break
+        # Prevent index error.
         if random_index > len(sketch_lines) - 1:
             return ""
         
+        # Check to see if the next line can fit.
         next_lines = truncated_dialogue + "\n" + sketch_lines[random_index]
-        if len(next_lines) > MAX_LENGTH:
+        if len(next_lines) > MAX_TWEET_LENGTH:
             return ""
         
         truncated_dialogue += "\n" + sketch_lines[random_index]
@@ -37,9 +40,10 @@ def get_tweetable_sketch(sketch):
 
 
 def tweet_random_sketch(api) -> None|str:
+    """Return dialogue from a random sketch truncated to fit a tweet"""
     sketch = api.get_random_sketch(detailed=False)
     
-    if not isinstance(sketch, dict):
+    if not isinstance(sketch, dict):  # Server probably not working.
         print("No sketch found...")
         return None
     
@@ -53,9 +57,10 @@ def tweet_random_sketch(api) -> None|str:
 
 
 def tweet_random_quote(api) -> None|str:
-    quote = api.get_random_quote(min_length=15, max_length=MAX_LENGTH)
+    """Return a random quote that fits a tweet"""
+    quote = api.get_random_quote(min_length=15, max_length=MAX_TWEET_LENGTH)
     
-    if not isinstance(quote, dict):
+    if not isinstance(quote, dict):  # Server probably not working.
         print("No quote found...")
         return None
     
@@ -63,7 +68,7 @@ def tweet_random_quote(api) -> None|str:
     while len(tweetable_quote) > 280:
         print("Invalid length for quote")
         tweetable_quote = api.get_random_quote(
-            min_length=15, max_length=MAX_LENGTH)["quote"]
+            min_length=15, max_length=MAX_TWEET_LENGTH)["quote"]
     
     return tweetable_quote
 

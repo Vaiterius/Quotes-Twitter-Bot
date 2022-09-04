@@ -6,23 +6,15 @@ import random
 import tweepy
 import schedule
 from schedule import run_pending
-from better_profanity import profanity
 
-# from . import utils, config
-from app import utils, config, movie_quotes, responses
+from app import handpicked_quotes, utils, config, responses
 from api_wrapper import wrapper
-# from movie_quotes import movie_quotes
-# from responses import funny_responses, roast_responses, responses_to_profanity
 
 # Create and configure logger.
 LOG_FORMAT = "[%(levelname)s] %(asctime)s - %(message)s"
-logging.basicConfig(filename="log.txt",
-                    level=logging.INFO,
-                    format=LOG_FORMAT,
-                    filemode = "w")
+logging.basicConfig(level=logging.INFO,
+                    format=LOG_FORMAT)
 logger = logging.getLogger()
-
-MAX_LENGTH = 280  # Max tweet length.
 
 
 def read_last_seen_id(FILE_NAME) -> int:
@@ -41,7 +33,6 @@ def store_last_seen_id(FILE_NAME, last_seen_id):
 
 def follow_followers(twitter_api):
     """Follow anyone that follows bot."""
-    logger.info("Retrieving and following followers.")
     for follower in tweepy.Cursor(twitter_api.get_followers).items():
         if not follower.following:
             logger.info(f"Following {follower.name}")
@@ -58,23 +49,33 @@ def tweet_monty_python(twitter_api, monty_python_api):
     choice_function = random.randint(0, 2)
     tweet = ""
     if choice_function == 0:
-        tweet += random.choice(movie_quotes.movie_quotes)
+        logger.info("Tweeting a handpicked quote")
+        tweet += random.choice(handpicked_quotes.quotes)
     elif choice_function == 1:
+        logger.info("Tweeting a random API quote")
         tweet += utils.tweet_random_quote(monty_python_api)
     else:
+        logger.info("Tweeting random API sketch dialogue")
         tweet += utils.tweet_random_sketch(monty_python_api)
     
+    # API probably not working?
+    if not tweet:
+        logger.error("Error occurred")
+        raise Exception("Error occurred")
+    
     twitter_api.update_status(tweet)
+    logger.info(f"Tweeted: {tweet}")
 
 
 def main():
+    logger.info("Initializing app")
     twitter_api = config.create_api()
-    monty_python_api = wrapper.MontyPythonAPI("v1")
-    schedule.every(30).minutes.do(tweet_monty_python, twitter_api, monty_python_api)  # TESTING
-    schedule.every(30).minutes.do(follow_followers, twitter_api)
-    schedule.every(5).seconds.do(lambda: print("This prints every 5 seconds"))
+    monty_python_api = wrapper.MontyPythonAPI()
+    schedule.every(30).minutes.do(tweet_monty_python, twitter_api, monty_python_api)
+    schedule.every(1).minute.do(follow_followers, twitter_api)
     while True:
         run_pending()
+        time.sleep(1)
 
 
 if __name__ == '__main__':
