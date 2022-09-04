@@ -1,15 +1,14 @@
-# Gooby Twitter Bot
+# Monty Python Quotes Twitter Bot
 
-Used to test and experiment with the Twitter API. Currently to poke fun at friends and overall just to play around with.
+A fun bot that tweets random quotes from Monty Python on the daily.
 
-Utilizes the awesome *[tweepy](https://github.com/tweepy/tweepy)* and *[better_profanity](https://github.com/snguyenthanh/better_profanity)* libraries. Powered by Heroku.
+Utilizes Python wrapper *[tweepy](https://github.com/tweepy/tweepy)*, tweet scheduling with *[schedule](https://schedule.readthedocs.io/en/stable/)*, and deployed with *[Docker](https://www.docker.com/)*. Hosted on *[Fly.io](https://fly.io/)*.
 
-### What it does
+All quotes are sourced from a quotes API I wrote *[here](https://github.com/Vaiterius/Monty-Pythons-Flying-API)* as well as some hand-picked ones.
+
+## What it does
 - Tweet a Monty Python quote every once in a while
-- Listen to stream if any tweet contains selected hashtags
-- Listen to stream if selected victims (friends) tweet and interact with them (funny/roast)
-- Detect profanity in mentions and respond accordingly
+- Filters tweets in real-time to pick out chosen hashtags and likes/retweets them
 - Follow anyone that follows bot
-- (soon) Receive and send direct messages
 
 Twitter handle: *[@bot_gooby](https://twitter.com/bot_gooby)*
