@@ -50,5 +50,6 @@ def get_client() -> "tweepy.Client":
 
 def get_stream_listener() -> "tweepy.StreamingClient":
     """Build streaming object to filter real-time tweets"""
-    return streamers.HashTagsChecker(BEARER_TOKEN, client=get_client())
+    return streamers.HashTagsChecker(
+        BEARER_TOKEN, wait_on_rate_limit=True, client=get_client())
 

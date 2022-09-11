@@ -8,8 +8,8 @@ logger = logging.getLogger()
 class HashTagsChecker(tweepy.StreamingClient):
     """Filters for specific hashtags and interacts with them"""
 
-    def __init__(self, bearer_token, client):
-        super().__init__(bearer_token)
+    def __init__(self, bearer_token, wait_on_rate_limit, client):
+        super().__init__(bearer_token, wait_on_rate_limit=wait_on_rate_limit)
         self.client = client
     
     def on_tweet(self, tweet):
