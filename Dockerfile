@@ -1,4 +1,4 @@
-FROM python:3.10.6-alpine
+FROM arm64v8/python:3.12-slim
 
 WORKDIR /code
 
@@ -10,4 +10,4 @@ COPY ./api_wrapper /code/api_wrapper
 
 COPY ./app /code/app
 
-CMD ["python3", "-m", "app.gooby_bot", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python3", "-m", "app.bot", "--host", "0.0.0.0", "--port", "8080"]

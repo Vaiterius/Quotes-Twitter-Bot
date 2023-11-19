@@ -3,7 +3,7 @@ import random
 MAX_TWEET_LENGTH = 280
 
 
-def get_tweetable_sketch(sketch):
+def _get_tweetable_sketch(sketch):
     """Return a random subsection of lines of dialogue that fit within 280 chars"""
     sketch_lines: list = sketch["body"]
     
@@ -48,10 +48,10 @@ def tweet_random_sketch(api) -> None|str:
         return None
     
     # Loop until tweetable dialogue is found.
-    tweetable_dialogue = get_tweetable_sketch(sketch)
+    tweetable_dialogue = _get_tweetable_sketch(sketch)
     while tweetable_dialogue == "":
         sketch = api.get_random_sketch(detailed=False)
-        tweetable_dialogue = get_tweetable_sketch(sketch)
+        tweetable_dialogue = _get_tweetable_sketch(sketch)
 
     return tweetable_dialogue
 
